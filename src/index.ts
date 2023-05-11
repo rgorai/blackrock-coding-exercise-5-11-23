@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as readline from 'readline'
 import { getAllCountries } from './api';
 
-const DATA_DIR = 'data'
+const DATA_DIR = 'output'
 const DATA_FILE_PATH = `${DATA_DIR}/austria_holidays_2023.csv`
 
 const csvData = "Name,Email\nJohnakfoijsdiofjsdiojfoisjdfiosdf Doe,johndoe@example.com\nJane Smith,janesmith@example.com";
