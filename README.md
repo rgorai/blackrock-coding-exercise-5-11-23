@@ -1,6 +1,6 @@
 # Ron Gorai - BlackRock Coding Exercise, 5/11/23
 
-This is my submission for a BlackRock coding exercise. I hope you are impressed! Thank you for your consideration.
+This is my submission for a BlackRock coding exercise. I hope you are impressed! Thank you again for your consideration.
 
 ## Getting Started
 Ensure you have the latest version of `node` installed.
