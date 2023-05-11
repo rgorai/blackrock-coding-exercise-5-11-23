@@ -1,17 +1,17 @@
 import * as fs from 'fs'
-import * as readline from 'readline'
-import { getAllCountries } from './api';
+import { getUserCountrySelection } from './questions'
+import { getCountryHolidays } from './api'
 
 const DATA_DIR = 'output'
-const DATA_FILE_PATH = `${DATA_DIR}/austria_holidays_2023.csv`
+const DATA_HEADERS = ['Name', 'Date', 'Days Until', 'Weekend']
 
-const csvData = "Name,Email\nJohnakfoijsdiofjsdiojfoisjdfiosdf Doe,johndoe@example.com\nJane Smith,janesmith@example.com";
+const main = async (): Promise<string> => {
+  // get user country selection
+  const userCountry = await getUserCountrySelection()
 
-const main = async () => {
-  // get all countries for user input
-  const countries = await getAllCountries()
+  const holidays = await getCountryHolidays(userCountry.countryCode)
 
-  console.log(countries)
+  console.log(holidays)
 
   // // reset the data directory
   // if (fs.existsSync(DATA_DIR))
@@ -23,14 +23,18 @@ const main = async () => {
   // fs.mkdirSync(DATA_DIR)
 
   // // write the data file to the data directory
+  const filePath = `${DATA_DIR}/${userCountry.name}_holidays_2023.csv`
   // fs.writeFileSync(DATA_FILE_PATH, csvData, 'utf-8')
+
+  return filePath
 }
 
 // execute the operation
 main()
-  .then(() => {
-    console.log(`Operation complete! File can be found at ./${DATA_FILE_PATH}`)
-  })
-  .catch((err) => {
+  .then((filePath) => 
+    console.log(`Operation complete! File can be found in ./${filePath}`)
+  )
+  .catch((err) => 
     console.error('Something went wrong!', err)
-  })
+  )
+  .then(() => console.log())

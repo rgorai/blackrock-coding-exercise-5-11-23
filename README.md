@@ -1,6 +1,6 @@
 # Ron Gorai - BlackRock Coding Exercise, 5/11/23
 
-## Prerequisites
+## Getting Started
 
 ## Usage
 
