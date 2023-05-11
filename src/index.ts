@@ -1,30 +1,43 @@
 import * as fs from 'fs'
 import { getUserCountrySelection } from './questions'
 import { getCountryHolidays } from './api'
+import { getDaysUntil, isWeekend } from './utils'
 
 const DATA_DIR = 'output'
 const DATA_HEADERS = ['Name', 'Date', 'Days Until', 'Weekend']
 
 const main = async (): Promise<string> => {
-  // get user country selection
+  // prompt user for country input
   const userCountry = await getUserCountrySelection()
 
-  const holidays = await getCountryHolidays(userCountry.countryCode)
+  // fetch holidays from api
+  const holidaysRes = await getCountryHolidays(userCountry.countryCode)
 
-  console.log(holidays)
+  // parse holidays into desired fields for output file
+  const outputData: OutputData = holidaysRes.map((e) => ({
+    name: e.name ?? '',
+    date: e.date,
+    daysUntil: getDaysUntil(e.date) ?? '',
+    weekend: isWeekend(e.date) ? 'Yes' : 'No'
+  }))
 
-  // // reset the data directory
-  // if (fs.existsSync(DATA_DIR))
-  //   try {
-  //     fs.rmSync(DATA_DIR, { recursive: true })
-  //   } catch (err) {
-  //     console.error('Error deleting folder:', String(err))
-  //   }
-  // fs.mkdirSync(DATA_DIR)
+  // parse output into csv-friendly format
+  const csvData = [
+    DATA_HEADERS.join(','),
+    ...outputData.map((e) => [
+      e.name,
+      e.date, 
+      e.daysUntil, 
+      e.weekend
+    ].join(','))
+  ].join('\n')
 
-  // // write the data file to the data directory
+  // create output dir if it doesn't exist
+  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR)
+
+  // write the data file to the data directory
   const filePath = `${DATA_DIR}/${userCountry.name}_holidays_2023.csv`
-  // fs.writeFileSync(DATA_FILE_PATH, csvData, 'utf-8')
+  fs.writeFileSync(filePath, csvData, 'utf-8')
 
   return filePath
 }

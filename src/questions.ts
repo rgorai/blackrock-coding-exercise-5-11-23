@@ -1,10 +1,10 @@
 import * as readline from 'readline'
 import { getAllCountries } from './api'
 
-export const getUserCountrySelection = async (): Promise<Country> => {
+export const getUserCountrySelection = async (): Promise<CountryData> => {
   const countries = await getAllCountries()
 
-  // list available options
+  // list available options to user
   console.log(countries.map((e) => e.name).join('\n'), '\n')
 
   const rl = readline.createInterface({
@@ -15,7 +15,7 @@ export const getUserCountrySelection = async (): Promise<Country> => {
 
   // recursive helper function to ensure valid input for questions
   const askQuestion = async () => 
-    await new Promise<Country>((resolve) => {
+    await new Promise<CountryData>((resolve) => {
     rl.question('Select a country from the options above: ', (input) => {
       try {
         input = input.trim()

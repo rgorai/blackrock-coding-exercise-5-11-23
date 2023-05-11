@@ -1,4 +1,4 @@
-type Country = {
+type CountryData = {
   name: string
   countryCode: string
 }
@@ -11,7 +11,7 @@ type HolidayTypes =
   | 'Optional'
   | 'Observance'
 
-type Holiday = {
+type HolidayData = {
   date: string
   localName: string | null
   name: string | null
