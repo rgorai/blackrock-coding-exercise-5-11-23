@@ -14,6 +14,11 @@ Clone this repository.
 git clone https://github.com/rgorai/blackrock-coding-exercise-5-11-23.git
 ```
 
+Navigate into the project root.
+```
+cd blackrock-coding-exercise-5-11-23
+```
+
 Install the required dependencies.
 ```
 npm install
@@ -25,7 +30,7 @@ First, start the proxy server.
 npm run start-server
 ```
 
-Then, execute the script.
+Then, in a new shell, execute the main script.
 ```
 npm run main
 ```
