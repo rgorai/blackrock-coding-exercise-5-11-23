@@ -1,0 +1,16 @@
+{
+  "name": "ron-gorai-blackrock-coding-exercise",
+  "version": "1.0.0",
+  "description": "Ron Gorai - BlackRock Coding Exercise, 5/11/23",
+  "main": "dist/index.js",
+  "author": "Ron Gorai",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "main": "yarn build && node dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.1.2",
+    "typescript": "^5.0.4"
+  }
+}
