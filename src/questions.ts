@@ -10,31 +10,31 @@ export const getUserCountrySelection = async (): Promise<CountryData> => {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
-    terminal: true
+    terminal: true,
   })
 
   // recursive helper function to ensure valid input for questions
-  const askQuestion = async () => 
+  const askQuestion = async () =>
     await new Promise<CountryData>((resolve) => {
-    rl.question('Select a country from the options above: ', (input) => {
-      try {
-        input = input.trim()
-        const country = countries.find(
-          (e) => e.name.toLowerCase() === input.toLowerCase()
-        )
-  
-        if(!country)
-          throw `'${input}' is not a valid option. Please try again.`
-       
-        resolve(country)
-        rl.close()
-        console.log()
-      } catch (err) {
-        console.log(String(err), '\n')
-        askQuestion().then(resolve)
-      }
+      rl.question('Select a country from the options above: ', (input) => {
+        try {
+          input = input.trim()
+          const country = countries.find(
+            (e) => e.name.toLowerCase() === input.toLowerCase()
+          )
+
+          if (!country)
+            throw `'${input}' is not a valid option. Please try again.`
+
+          resolve(country)
+          rl.close()
+          console.log()
+        } catch (err) {
+          console.log(String(err), '\n')
+          askQuestion().then(resolve)
+        }
+      })
     })
-  })
 
   return await askQuestion()
 }

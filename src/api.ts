@@ -1,4 +1,4 @@
-import axios, {AxiosProxyConfig} from 'axios'
+import axios, { AxiosProxyConfig } from 'axios'
 
 const proxy: AxiosProxyConfig = {
   protocol: 'http',
@@ -11,11 +11,12 @@ const axiosInstance = axios.create({ proxy })
 
 const callApi = async (endpoint: string) => {
   try {
-    const { data } = await axiosInstance.get(`https://date.nager.at/api/v3/${endpoint}`)
+    const { data } = await axiosInstance.get(
+      `https://date.nager.at/api/v3/${endpoint}`
+    )
     return data
   } catch (err: any) {
-    if (err.code === 'ECONNREFUSED') 
-      throw 'Proxy server has not been started.'
+    if (err.code === 'ECONNREFUSED') throw 'Proxy server has not been started.'
     throw String(err)
   }
 }
@@ -23,5 +24,6 @@ const callApi = async (endpoint: string) => {
 export const getAllCountries = async (): Promise<CountryData[]> =>
   await callApi('AvailableCountries')
 
-export const getCountryHolidays = async (countryCode: string): Promise<HolidayData[]> => 
-  await callApi(`PublicHolidays/2023/${countryCode}`)
+export const getCountryHolidays = async (
+  countryCode: string
+): Promise<HolidayData[]> => await callApi(`PublicHolidays/2023/${countryCode}`)

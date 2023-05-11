@@ -18,18 +18,15 @@ const main = async (): Promise<string> => {
     name: e.name ?? '',
     date: e.date,
     daysUntil: getDaysUntil(e.date) ?? '',
-    weekend: isWeekend(e.date) ? 'Yes' : 'No'
+    weekend: isWeekend(e.date) ? 'Yes' : 'No',
   }))
 
   // parse output into csv-friendly format
   const csvData = [
     DATA_HEADERS.join(','),
-    ...outputData.map((e) => [
-      e.name,
-      e.date, 
-      e.daysUntil, 
-      e.weekend
-    ].join(','))
+    ...outputData.map((e) =>
+      [e.name, e.date, e.daysUntil, e.weekend].join(',')
+    ),
   ].join('\n')
 
   // create output dir if it doesn't exist
@@ -44,10 +41,8 @@ const main = async (): Promise<string> => {
 
 // execute the operation
 main()
-  .then((filePath) => 
+  .then((filePath) =>
     console.log(`Operation complete! File can be found in ./${filePath}`)
   )
-  .catch((err) => 
-    console.error('Something went wrong!', err)
-  )
+  .catch((err) => console.error('Something went wrong!', err))
   .then(() => console.log())

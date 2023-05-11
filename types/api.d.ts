@@ -3,7 +3,7 @@ type CountryData = {
   countryCode: string
 }
 
-type HolidayTypes = 
+type HolidayTypes =
   | 'Public'
   | 'Bank'
   | 'School'
